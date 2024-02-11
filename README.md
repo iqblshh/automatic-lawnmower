@@ -3,12 +3,14 @@ A lawnmower that mows the lawn automatically without human intervention. With cr
 ![image](https://github.com/iqblshh/roomba-lawnmower/assets/108766437/59eb2113-8bb8-47ea-a0ab-0fa5be4a9314)
 
 
-Prepared by:  
-  
-Name  	                         Student ID No.  	HP No.  
-IQBAL SHAH BIN ABDUL HALIM SHAH  52224223215      01164217692 
+Prepared by:   
+Name : IQBAL SHAH BIN ABDUL HALIM SHAH
+Student ID No. : 52224223215
+HP No. : 01164217692 
  
-NURDALIA DIYANA BINTI ZAMANI     52224122590      0133408940  
+Name : NURDALIA DIYANA BINTI ZAMANI
+Student ID No. : 52224122590
+HP No. : 0133408940  
   
 Prepared For : Assoc. Prof. Ts. Dr. Haidawati Binti Mohamad Nasir  
  
