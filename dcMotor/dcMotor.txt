@@ -1,0 +1,169 @@
+
+const int echoRight = 8;	//ultrasonic pin
+const int trigRight = 9; 
+const int echoMid = 10;	
+const int trigMid = 11; 
+const int echoLeft = 12;	
+const int trigLeft = 13; 
+
+int enablepin_1 = 2;	//dc motor pin
+int in1L = 3;
+int in2L = 4;
+int enablepin_2 = 5;
+int in3R = 6;
+int in4R = 7;
+
+int x = 0;
+
+long duraRight, duraMid, duraLeft;	//ultrasonic variable
+int distRight, distMid, distLeft;
+
+void setup()
+{
+  pinMode(enablepin_1,OUTPUT);
+  pinMode(in1L, OUTPUT);
+  pinMode(in2L, OUTPUT);
+  
+  pinMode(enablepin_2,OUTPUT);
+  pinMode(in3R, OUTPUT);
+  pinMode(in4R, OUTPUT);
+  
+  digitalWrite(enablepin_1,LOW);
+  digitalWrite(enablepin_2,LOW);
+  	
+  pinMode (echoRight, INPUT);
+  pinMode (trigRight, OUTPUT);
+  pinMode (echoMid, INPUT);
+  pinMode (trigMid, OUTPUT);
+  pinMode (echoLeft, INPUT);
+  pinMode (trigLeft, OUTPUT);
+  
+}
+
+void loop()
+{
+  right();
+  mid();
+  left();
+  x = 0;
+}
+
+void right()	//check for right obstacle
+{ 
+  digitalWrite (trigRight, LOW);     
+  delayMicroseconds (10);           
+  digitalWrite (trigRight, HIGH);   
+  delayMicroseconds (10);          
+  digitalWrite (trigRight, LOW);       
+
+  duraRight = pulseIn (echoRight, HIGH); 
+  distRight = duraRight * 0.034 / 2;
+  
+  if (distRight <= 100)		//if obstacle is below 100 cm, make a turn  {
+  {
+    digitalWrite(enablepin_1,HIGH);
+    digitalWrite(in1L,HIGH);
+    digitalWrite(in2L,LOW);
+
+    digitalWrite(enablepin_2,HIGH);
+    digitalWrite(in3R,LOW);
+    digitalWrite(in4R,HIGH);  
+    x = 1;
+  } 
+  
+  delay(10);
+}
+
+void mid()		//check for middle obstacle
+{ 
+  digitalWrite (trigMid, LOW);     
+  delayMicroseconds (10);           
+  digitalWrite (trigMid, HIGH);   
+  delayMicroseconds (10);          
+  digitalWrite (trigMid, LOW);       
+
+  duraMid = pulseIn (echoMid, HIGH); 
+  distMid = duraMid * 0.034 / 2;
+  
+  if (distMid <= 100)
+  {
+    digitalWrite(enablepin_1,HIGH);
+    digitalWrite(in1L,LOW);
+    digitalWrite(in2L,HIGH);
+
+    digitalWrite(enablepin_2,HIGH);
+    digitalWrite(in3R,LOW);
+    digitalWrite(in4R,HIGH);  
+    
+    delay(2000);
+    
+    bool y = (rand() % 2);		//random left or right turn
+    
+    if (y == 0) {
+    	digitalWrite(enablepin_1,HIGH);
+        digitalWrite(in1L,HIGH);
+        digitalWrite(in2L,LOW);
+
+        digitalWrite(enablepin_2,HIGH);
+        digitalWrite(in3R,LOW);
+        digitalWrite(in4R,HIGH);  
+    }
+    else {
+    	digitalWrite(enablepin_1,HIGH);
+        digitalWrite(in1L,LOW);
+        digitalWrite(in2L,HIGH);
+
+        digitalWrite(enablepin_2,HIGH);
+        digitalWrite(in3R,HIGH);
+        digitalWrite(in4R,LOW);
+    }
+    delay(1000);
+  } 
+  
+  else		//if no obstacle go forward
+  {
+    if (x == 0) {
+    	go();
+    }
+  }
+  
+  delay(10);
+}
+
+void left()		//check for left obstacle
+{ 
+  digitalWrite (trigLeft, LOW);     
+  delayMicroseconds (10);           
+  digitalWrite (trigLeft, HIGH);   
+  delayMicroseconds (10);          
+  digitalWrite (trigLeft, LOW);       
+
+  duraLeft = pulseIn (echoLeft, HIGH); 
+  distLeft = duraLeft * 0.034 / 2;
+  
+  if (distLeft <= 100)
+  {
+    digitalWrite(enablepin_1,HIGH);
+    digitalWrite(in1L,LOW);
+    digitalWrite(in2L,HIGH);
+
+    digitalWrite(enablepin_2,HIGH);
+    digitalWrite(in3R,HIGH);
+    digitalWrite(in4R,LOW);  
+    x = 1;
+  } 
+  
+  delay(10);
+}
+
+void go()		//drive forward
+{
+  digitalWrite(enablepin_1,HIGH);
+  digitalWrite(in1L,HIGH);
+  digitalWrite(in2L,LOW);
+
+  digitalWrite(enablepin_2,HIGH);
+  digitalWrite(in3R,HIGH);
+  digitalWrite(in4R,LOW);  
+}
+
