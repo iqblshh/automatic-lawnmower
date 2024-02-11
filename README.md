@@ -1,5 +1,7 @@
 # roomba-lawnmower
 A lawnmower that mows the lawn automatically without human intervention. With crash detection.
+![image](https://github.com/iqblshh/roomba-lawnmower/assets/108766437/59eb2113-8bb8-47ea-a0ab-0fa5be4a9314)
+
 
 Prepared by:  
   
